@@ -1,3 +1,8 @@
 language: java
+jdk:
+  - oraclejdk8
+sudo: true
+script:
+  - mvn test
 notifications:
   slack: p632:XiARllT9nFxgx8F9QephjvZ5
