@@ -29,7 +29,7 @@ final class MongoDBService implements MSService {
 
     @Override
     public MSDTO create(MSDTO ms) {
-        LOGGER.info("Creating a new todo entry with information: {}", ms);
+        LOGGER.info("Creating a new microservice entry with information: {}", ms);
 
         MS persisted = MS.getBuilder()
                 .title(ms.getTitle())
@@ -38,7 +38,7 @@ final class MongoDBService implements MSService {
                 .build();
 
         persisted = repository.save(persisted);
-        LOGGER.info("Created a new todo entry with information: {}", persisted);
+        LOGGER.info("Created a new microservice entry with information: {}", persisted);
 
         return convertToDTO(persisted);    }
 
@@ -73,7 +73,7 @@ final class MongoDBService implements MSService {
 
     @Override
     public MSDTO findById(String id) {
-        LOGGER.info("Finding todo entry with id: {}", id);
+        LOGGER.info("Finding microservice entry with id: {}", id);
 
         MS found = findMSById(id);
 
@@ -83,13 +83,13 @@ final class MongoDBService implements MSService {
 
     @Override
     public MSDTO update(MSDTO ms) {
-        LOGGER.info("Updating todo entry with information: {}", ms);
+        LOGGER.info("Updating microservice entry with information: {}", ms);
 
         MS updated = findMSById(ms.getId());
-        updated.update(ms.getTitle(), ms.getDescription());
+        updated.update(ms.getTitle(), ms.getDescription(), ms.getUrl());
         updated = repository.save(updated);
 
-        LOGGER.info("Updated todo entry with information: {}", updated);
+        LOGGER.info("Updated microservice entry with information: {}", updated);
 
         return convertToDTO(updated);    }
 

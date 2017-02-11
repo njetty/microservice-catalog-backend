@@ -1,5 +1,7 @@
 package com.p632.catalog.util;
 
+import org.apache.commons.validator.routines.UrlValidator;
+
 /**
  * This class provides static utility methods that are used to ensure that a constructor or a method was invoked properly.
  * These methods throw an exception if the specified precondition is violated.
@@ -9,6 +11,8 @@ package com.p632.catalog.util;
  * @author Petri Kainulainen
  */
 public final class PreCondition {
+    //static final String[] schemes = {"http","https"};
+    static UrlValidator urlValidator = new UrlValidator();
     /**
      * Ensures that the expression given as a method parameter is true.
      * @param expression The inspected expression.
@@ -55,6 +59,18 @@ public final class PreCondition {
     public static void notNull(Object reference, String errorMessage) {
         if (reference == null) {
             throw new NullPointerException(errorMessage);
+        }
+    }
+    /**
+     * Ensures that the string given as a method parameter is a valid URL.
+     * @param url The inspected url.
+     * @param errorMessage The error message that is passed forward to the exception that is thrown if
+     * the string is empty.
+     * @throws java.lang.IllegalArgumentException if the inspected string is not a valid URL.
+     */
+    public static void isValidUrl(String url, String errorMessage) {
+        if (!urlValidator.isValid(url)) {
+            throw new IllegalArgumentException(errorMessage);
         }
     }
 }

@@ -1,16 +1,18 @@
 package com.p632.catalog.service;
 
+import org.apache.commons.validator.routines.UrlValidator;
 import org.springframework.data.annotation.Id;
 
-import static com.p632.catalog.util.PreCondition.isTrue;
-import static com.p632.catalog.util.PreCondition.notEmpty;
-import static com.p632.catalog.util.PreCondition.notNull;
+import static com.p632.catalog.util.PreCondition.*;
 
 /**
  * @author Naveen Jetty
  */
 
 final class MS {
+
+    static final int MAX_LENGTH_DESCRIPTION = 250;
+    static final int MAX_LENGTH_TITLE = 50;
 
     @Id
     private String id;
@@ -47,17 +49,18 @@ final class MS {
 
     public String getUrl() {return url; }
 
-    public void update(String title, String description) {
-        checkTitleAndDescription(title, description);
+    public void update(String title, String description, String url) {
+        checkTitleAndDescriptionAndUrl(title, description, url);
 
         this.title = title;
         this.description = description;
+        this.url = url;
     }
 
     @Override
     public String toString() {
         return String.format(
-                "Todo[id=%s, description=%s, title=%s, url=%s]",
+                "MS[id=%s, description=%s, title=%s, url=%s]",
                 this.id,
                 this.description,
                 this.title,
@@ -97,17 +100,33 @@ final class MS {
         MS build() {
             MS build = new MS(this);
 
-            build.checkTitleAndDescription(build.getTitle(), build.getDescription());
+            build.checkTitleAndDescriptionAndUrl(build.getTitle(), build.getDescription(), build.getUrl());
 
             return build;
         }
     }
 
-    private void checkTitleAndDescription(String title, String description) {
+    private void checkTitleAndDescriptionAndUrl(String title, String description, String url) {
         notNull(title, "Title cannot be null");
         notEmpty(title, "Title cannot be empty");
 
         notNull(description, "Description cannot be null");
         notEmpty(description, "Description cannot be empty");
+
+        isTrue(title.length() <= MAX_LENGTH_TITLE,
+                "Title cannot be longer than %d characters",
+                MAX_LENGTH_TITLE
+        );
+
+        if (description != null) {
+            isTrue(description.length() <= MAX_LENGTH_DESCRIPTION,
+                    "Description cannot be longer than %d characters",
+                    MAX_LENGTH_DESCRIPTION
+            );
+        }
+
+        notNull(url, "Url cannot be null");
+        notEmpty(url, "Url cannot be empty");
+        isValidUrl(url, "Invalid URL Format");
     }
 }
