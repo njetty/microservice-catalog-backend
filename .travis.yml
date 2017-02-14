@@ -5,4 +5,8 @@ sudo: true
 script:
   - mvn test
 notifications:
-  slack: p632:XiARllT9nFxgx8F9QephjvZ5
+  slack: 
+    rooms:
+      - p632:XiARllT9nFxgx8F9QephjvZ5
+    on_success: never
+    on_failure: always
