@@ -101,9 +101,4 @@ public class MSTest {
                 .hasDescription(DESCRIPTION)
                 .hasUrl(URL);
     }
-
-    @Test
-    public void intentionalFailingTestCaseToCheckTravisIsBehavingProperlyAndNotCreatingBuildwhenFailingTestCases(){
-        Assert.assertTrue(1==2);
-    }
 }
