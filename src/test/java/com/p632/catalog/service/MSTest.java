@@ -1,6 +1,7 @@
 package com.p632.catalog.service;
 
 import org.junit.Test;
+import org.junit.Assert;
 
 import static com.p632.catalog.service.ServiceAssert.assertThatService;
 
@@ -99,5 +100,10 @@ public class MSTest {
                 .hasTitle(TITLE)
                 .hasDescription(DESCRIPTION)
                 .hasUrl(URL);
+    }
+
+    @Test
+    public void intentionalFailingTestCaseToCheckTravisIsBehavingProperlyAndNotCreatingBuildwhenFailingTestCases(){
+        Assert.assertTrue(1==2);
     }
 }
