@@ -1,6 +1,7 @@
 package com.p632.catalog.service;
 
 import org.junit.Test;
+import org.junit.Assert;
 
 import static com.p632.catalog.service.ServiceAssert.assertThatService;
 
