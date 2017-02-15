@@ -8,5 +8,5 @@ notifications:
   slack: 
     rooms:
       - p632:XiARllT9nFxgx8F9QephjvZ5
-    on_success: never
+    on_success: change
     on_failure: always
